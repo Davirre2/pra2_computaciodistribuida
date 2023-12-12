@@ -1,0 +1,1 @@
+#aquí hi ha les consultes a BD i tal
