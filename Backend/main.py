@@ -5,6 +5,9 @@ from pydantic import BaseModel
 from threading import Event
 
 app = FastAPI()
+
+#tokens metadata per els schemas o els routers
+
 exit_event = Event()
 
 @app.on_event("shutdown")
