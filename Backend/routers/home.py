@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-import Backend.schemas.home as schemas
-import Backend.services.home as services
+import schemas.home as schemas
+import services.home as services
 
 router = APIRouter(
     prefix="/home",
@@ -9,6 +9,10 @@ router = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
-@router.get("/")
-async def list_home(home_id: id, payload: schemas.HomeList):
+@router.get("/{id}")
+async def list_home(id: int, payload: schemas.HomeList):
     return await services.get_home_list(id, payload)
+
+@router.get("/")
+async def list_home(payload: schemas.HomeList):
+    return await services.get_home_list(1, payload)

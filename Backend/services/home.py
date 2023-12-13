@@ -1,22 +1,29 @@
 #aquí hi ha les consultes a BD i tal
-import Backend.schemas.home
-
-import Backend.models.home as home
-import Backend.schemas.home as schemas
+import schemas.home
+import database.database as database
+import models.home as home
+import schemas.home as schemas
 from fastapi import FastAPI
-from sqlmodel import Session, create_engine, select
+#from sqlmodel import Session, create_engine, select
 
 app = FastAPI()
 
 async def get_home_list(Id: int, payload: schemas.HomeList):
     engine = create_engine("sqlite:///localhost") #nidea
 
-    with Session(engine) as session:
-        statement = select(home).where(home.Id == Id)
-        result = session.exec(statement).first()
-        print(result)
+    db = Depends(database.get_db())
+    home_data = {"home_name": "My Home", "home_description": "Description", "home_address": "123 Main St","owner": 1, }
+    create_home(test_home, db)
+    homes = db.query(Home).filter(models.Home.id == home_id).all()
+    print (homes)
+    return homes
 
-    return print("holw")
+
+async def create_home(Home: home, db: Session = Depends(get_db)):
+    await db.add(home) #no sé si calen els await
+    await db.commit()
+    await db.refresh(home)
+    return home
 
 # @app.get("/home/{owner:str}")
 # async def get_home_list_by_owner(owner: int):

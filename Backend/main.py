@@ -2,41 +2,30 @@ import time
 import threading
 from fastapi import FastAPI
 from pydantic import BaseModel
-from threading import Event
+import requests
+import database.database as database
+import models.home as Home
+import services as services
 
 app = FastAPI()
 
 #tokens metadata per els schemas o els routers
 
-exit_event = Event()
+database.init_database()
 
-@app.on_event("shutdown")
-def shutdown_event():
-    exit_event.set()
+home_data = {
+    "home_name": "My Home",
+    "home_description": "Description",
+    "home_address": "123 Main St",
+    "owner": 1,
+}
 
-@app.get("/get_home_list")
-def get_home_list():
-    data_to_send = {
-        'task_name': current_task.task_name,
-        'completion_percent': current_task.completion_percent
-    }
-    return data_to_send
+response = requests.post("http://127.0.0.1:8000/home/", json=home_data)
+print(response.json())
+if response.status_code == 200:
+    created_home = response.json()
+    print("Home created successfully:")
+    print(created_home)
 
-class Data(BaseModel):
-    item : str
-
-@app.post("/add_item")
-def add_item(data: Data):
-    if data.item:
-        queue.put(data.item)
-        return f'Item added to the queue: {data.item}'
-    else:
-        return "Item is empty"
-
-@app.get("/get_queue")
-def get_queue():
-    return list(queue.queue)
-
-wait_thread = threading.Thread(target=waiting_for_queue, args=(current_task,))
-wait_thread.start()
-    
+response = request.get("http://127.0.0.1:8000/home/", json=home_data)
+print(response.json())
