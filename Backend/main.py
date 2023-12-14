@@ -19,13 +19,13 @@ home_data = {
     "home_address": "123 Main St",
     "owner": 1,
 }
+print("hola")
+# response = requests.post("http://127.0.0.1:8000/home", json=home_data)
+# print(response.json())
+# if response.status_code == 200:
+#     created_home = response.json()
+#     print("Home created successfully:")
+#     print(created_home)
 
-response = requests.post("http://127.0.0.1:8000/home/", json=home_data)
-print(response.json())
-if response.status_code == 200:
-    created_home = response.json()
-    print("Home created successfully:")
-    print(created_home)
-
-response = request.get("http://127.0.0.1:8000/home/", json=home_data)
-print(response.json())
+# response = requests.get("http://127.0.0.1:8000/home/", json=home_data)
+# print(response.json())

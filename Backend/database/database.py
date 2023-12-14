@@ -17,11 +17,10 @@ def init_database():
     engine = create_engine(
         SQLALCHEMY_DATABASE_URL, connect_args = {"check_same_thread": False}
     )
-
     print(engine)    
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-    print("Tot creat-ish?")
+    #print("Tot creat-ish?")
 
 def get_all_db_data():
     return(SQLALCHEMY_DATABASE_URL, engine, SessionLocal, Base)
