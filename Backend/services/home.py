@@ -1,5 +1,5 @@
 #aquí hi ha les consultes a BD i tal
-
+import pytest
 from sqlmodel import Session
 #from requests import Session quin dels dos es xd
 
@@ -18,13 +18,37 @@ async def get_home_list(Id: int, payload: schemas.HomeList):
     db = Depends(database.get_db())
     id = 1
     test_home = {"id": id,"home_name": "My Home", "home_description": "Description", "home_address": "123 Main St","owner": 1, }
-    create_home(test_home, db)
+    #create_home(test_home, db)
     homes = db.query(home.Home).filter(home.Home.id == id).all()
     print (homes)
     return homes
 
+def test_home():
+    pn = home.Home(id=1, home_name="country", home_description="code", home_address="number", owner="1", rooms="AS")
 
-async def create_home(Home: home, db: Session = Depends(database.get_db)):
+    assert pn.id == 1
+    assert pn.home_name == 'country'
+    assert pn.home_description == 'code'
+    assert pn.home_address == 'number'
+    assert pn.owner == '1'
+    return pn
+
+async def get_home_test(db: Session):
+    #engine = create_engine("sqlite:///localhost") #nidea
+    id = 1
+    test_home = test_home()
+    #create_home(test_home, db)
+    deb = next(db)
+    
+    deb.add(test_home)
+    deb.commit()
+    deb.refresh(test_home)
+    #homes = db.query(home.Home).filter(home.Home.id == id).all()
+    print ("homes")
+    return "homes"
+
+
+async def post_home(Home: home, db: Session = Depends(database.get_db)):
     await db.add(home) #no sé si calen els await
     await db.commit()
     await db.refresh(home)

@@ -10,7 +10,8 @@ Base = declarative_base()
 
 def init_database():
     global SQLALCHEMY_DATABASE_URL, engine, SessionLocal
-    SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db" #TODO canviar esta url
+    #SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db" #TODO canviar esta url
+    SQLALCHEMY_DATABASE_URL = "sqlite:///sql_app.db"
     # SQLALCHEMY_DATABASE_URL = "postgresql://user:password@postgresserver/db"
     #jwt
 

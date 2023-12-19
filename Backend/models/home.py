@@ -4,6 +4,9 @@ from sqlalchemy.orm import relationship
 
 from database.database import Base
 
+from models.room import Room
+from models.user import User
+
 class Home(Base):
     __tablename__ = "home"
     id = Column(Integer, primary_key=True, index=True)
@@ -12,5 +15,8 @@ class Home(Base):
     home_description = Column(String)
     owner = Column(Integer, ForeignKey("user.id"))
 
-    rooms = relationship("Room", back_populates="room.id")
+    rooms = Column(String, ForeignKey("room.id"))
+    #rooms = relationship(Room, back_populates="room.id")
+    #rooms = relationship("room", back_populates="room.id")
+
     #owner = relationship("owner", back_populates="home") #maybe?

@@ -6,9 +6,11 @@ import requests
 import database.database as database
 import models.home as Home
 import services as services
+from routers.home import router as routerhome
 
 app = FastAPI()
 
+app.include_router(routerhome, tags=["home"])
 #tokens metadata per els schemas o els routers
 
 database.init_database()
@@ -20,6 +22,8 @@ home_data = {
     "owner": 1,
 }
 print("hola")
+
+
 # response = requests.post("http://127.0.0.1:8000/home", json=home_data)
 # print(response.json())
 # if response.status_code == 200:

@@ -21,7 +21,7 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
-from Backend.database.database import Base
+from database.database import Base
 
 
 class User(Base):
@@ -32,4 +32,4 @@ class User(Base):
     # hashed_password = Column(String)
     # is_active = Column(Boolean, default=True)
 
-    homes = relationship("Home", back_populates="home.id") #maybe no es aixi
+    #homes = relationship("Home", back_populates="home.id") #maybe no es aixi
