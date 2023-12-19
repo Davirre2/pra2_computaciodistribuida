@@ -23,7 +23,7 @@ async def get_home_list(Id: int, payload: schemas.HomeList):
     print (homes)
     return homes
 
-def test_home():
+def test_homee():
     pn = home.Home(id=1, home_name="country", home_description="code", home_address="number", owner="1", rooms="AS")
 
     assert pn.id == 1
@@ -36,7 +36,7 @@ def test_home():
 async def get_home_test(db: Session):
     #engine = create_engine("sqlite:///localhost") #nidea
     id = 1
-    test_home = test_home()
+    test_home = test_homee()
     #create_home(test_home, db)
     deb = next(db)
     

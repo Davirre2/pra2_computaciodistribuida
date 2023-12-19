@@ -3,13 +3,30 @@
 
 from pydantic import BaseModel
 
-class HomeList(BaseModel):
+class HomeBase(BaseModel):
+    home_name: str
+    rooms: int
+
+class HomeCreate(HomeBase):
+    pass
+
+class Home(HomeBase):
+    id: int
+    owner: int
+    rooms: int
+    home_description: str
+    home_address: str
+
+    class Config:
+        from_attributes = True
+
+class HomeList(HomeBase):
     home_name: str
     home_description: str
     home_address: str
     owner: int
 
-class HomeListUser(BaseModel): #no estic segur
-    home_name: str
-    home_description: str
-    home_address: str
+# class HomeListUser(BaseModel): #no estic segur
+#     home_name: str
+#     home_description: str
+#     home_address: str

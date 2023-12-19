@@ -5,8 +5,16 @@ from sqlalchemy.orm import sessionmaker
 SQLALCHEMY_DATABASE_URL = ""
 engine = None
 SessionLocal = None
-Base = declarative_base()
 
+
+SQLALCHEMY_DATABASE_URL = "sqlite:///./database/sql_app.db"
+
+engine = create_engine(
+    SQLALCHEMY_DATABASE_URL, connect_args = {"check_same_thread": False}
+)
+#print(engine)    
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+Base = declarative_base()
 
 def init_database():
     global SQLALCHEMY_DATABASE_URL, engine, SessionLocal
@@ -18,7 +26,7 @@ def init_database():
     engine = create_engine(
         SQLALCHEMY_DATABASE_URL, connect_args = {"check_same_thread": False}
     )
-    print(engine)    
+    #print(engine)    
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
     #print("Tot creat-ish?")

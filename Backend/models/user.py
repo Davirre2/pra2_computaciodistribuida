@@ -24,12 +24,12 @@ from sqlalchemy.orm import relationship
 from database.database import Base
 
 
-class User(Base):
-    __tablename__ = "user"
+# class User(Base):
+#     __tablename__ = "user"
 
-    id = Column(Integer, primary_key=True, index=True)
-    email = Column(String, unique=True, index=True)
-    # hashed_password = Column(String)
-    # is_active = Column(Boolean, default=True)
+#     id = Column(Integer, primary_key=True, index=True)
+#     email = Column(String, unique=True, index=True)
+#     # hashed_password = Column(String)
+#     # is_active = Column(Boolean, default=True)
 
-    #homes = relationship("Home", back_populates="home.id") #maybe no es aixi
+#     homes = relationship("Home", back_populates="owner") #maybe no es aixi

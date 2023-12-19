@@ -13,7 +13,7 @@ app = FastAPI()
 app.include_router(routerhome, tags=["home"])
 #tokens metadata per els schemas o els routers
 
-database.init_database()
+#database.init_database()
 
 home_data = {
     "home_name": "My Home",
