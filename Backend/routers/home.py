@@ -4,6 +4,8 @@ import services.home as services
 import database.database as database
 from sqlmodel import Session
 
+from services.home import home
+
 
 router = APIRouter(
     prefix="/home",
@@ -12,19 +14,16 @@ router = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
+home_service = home(database.db_get())
+
 @router.get("/{id}")
-async def list_home(id: int):
-    print(id)
-    #return await services.get_home_list(id, payload)
-    return {"id": id,"home_name": "My Home", "home_description": "Description", "home_address": "123 Main St","owner": 1, }
+def list_home(id: int):
+    return home_service.get_home_list_byId(id)
 
 @router.get("/")
-async def list_home():
-    print("asd")
-    #return {"id": "1","home_name": "My Home", "home_description": "Description", "home_address": "123 Main St","owner": 1, }
-    db: Session = (database.get_db())
-    return await services.get_home_test(db)
+def list_home():
+    return home_service.get_home_list()
 
-@router.post("/new_home")
-async def post_home(payload: schemas.HomeList):#que polles va qui
-    return await services.put_home(payload)
+@router.post("/")
+def post_home(payload: schemas.HomeList):#que polles va qui
+    return home_service.create_home(payload)

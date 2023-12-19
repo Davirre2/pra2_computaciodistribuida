@@ -1,24 +1,26 @@
 #aquí hi ha la lògica i validacions i tal
 #la forma eb la que pilla la info el endpint
 
-from pydantic import BaseModel
+from pydantic import BaseModel, validator
 
 class HomeBase(BaseModel):
     home_name: str
-    rooms: int
 
-class HomeCreate(HomeBase):
-    pass
+class HomeCreate(HomeBase): #post
+    home_description: str
+    home_address: str
+    owner_id: int
 
 class Home(HomeBase):
     id: int
-    owner: int
-    rooms: int
+    owner_id: int
+    rooms: int #list[Room] = []
     home_description: str
     home_address: str
 
-    class Config:
-        from_attributes = True
+    # class Config:
+    #     from_attributes = True
+
 
 class HomeList(HomeBase):
     home_name: str

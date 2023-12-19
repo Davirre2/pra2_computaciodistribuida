@@ -6,37 +6,28 @@ SQLALCHEMY_DATABASE_URL = ""
 engine = None
 SessionLocal = None
 
-
 SQLALCHEMY_DATABASE_URL = "sqlite:///./database/sql_app.db"
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL, connect_args = {"check_same_thread": False}
 )
-#print(engine)    
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
-def init_database():
-    global SQLALCHEMY_DATABASE_URL, engine, SessionLocal
-    #SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db" #TODO canviar esta url
-    SQLALCHEMY_DATABASE_URL = "sqlite:///sql_app.db"
-    # SQLALCHEMY_DATABASE_URL = "postgresql://user:password@postgresserver/db"
-    #jwt
-
-    engine = create_engine(
-        SQLALCHEMY_DATABASE_URL, connect_args = {"check_same_thread": False}
-    )
-    #print(engine)    
-    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-    #print("Tot creat-ish?")
+import models.home
+Base.metadata.create_all(bind=engine)
 
 def get_all_db_data():
     return(SQLALCHEMY_DATABASE_URL, engine, SessionLocal, Base)
+
+def db_get(): 
+    return SessionLocal()
 
 def get_db():
     db = SessionLocal()
     try:
         yield db
+    except:
+        db.close()
     finally:
         db.close()

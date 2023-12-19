@@ -15,11 +15,11 @@ class Home(Base):
     home_address = Column(String)
     home_description = Column(String)
     owner_id = Column(Integer, ForeignKey("user.id"))
-    rooms = Column(String, ForeignKey("room.id"))
-    #rooms = relationship(Room, back_populates="room.id")
+    rooms_ids = Column(String, ForeignKey("room.id"))
+    #rooms = relationship("Room", back_populates="home")  #TODO aixo chatgpt deia que feia falta
     
-    rooms_in_home = relationship("Room", back_populates="rooms_in_home")
-    owner = relationship("User", back_populates="home") #maybe?
+    rooms = relationship("Room", back_populates="rooms_in_home")
+    owner = relationship("User", back_populates="homes") #maybe?
 
 class Room(Base):
     __tablename__ = "room"
@@ -28,7 +28,7 @@ class Room(Base):
     room_device_description = Column(String)
 
     #room_home_id = Column(String, ForeignKey("Home.id"))
-    rooms_in_home = relationship("Home", back_populates="home.rooms")
+    rooms_in_home = relationship("Home", back_populates="rooms")
 
 class User(Base):
     __tablename__ = "user"

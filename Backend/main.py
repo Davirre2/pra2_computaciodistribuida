@@ -7,21 +7,20 @@ import database.database as database
 import models.home as Home
 import services as services
 from routers.home import router as routerhome
+from routers.user import router as routeruser
+
+from exceptions import ErrorHandler
+from exceptions.UsedEmailException import UsedEmailException
 
 app = FastAPI()
 
+app.add_exception_handler(UsedEmailException, ErrorHandler.used_email_exception_handler)
+
 app.include_router(routerhome, tags=["home"])
+app.include_router(routeruser, tags=["user"])
 #tokens metadata per els schemas o els routers
 
-#database.init_database()
 
-home_data = {
-    "home_name": "My Home",
-    "home_description": "Description",
-    "home_address": "123 Main St",
-    "owner": 1,
-}
-print("hola")
 
 
 # response = requests.post("http://127.0.0.1:8000/home", json=home_data)
