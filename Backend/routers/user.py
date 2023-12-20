@@ -1,9 +1,6 @@
 from fastapi import APIRouter, Depends
 import schemas.user as schemas
-import services.user as services
 import database.database as database
-from sqlmodel import Session
-
 from services.user import UserService
 
 
