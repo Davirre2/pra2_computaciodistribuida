@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 import schemas.room as schemas
-import services.room as room
+from services.room import RoomService
 import database.database as database
 from sqlmodel import Session
 
@@ -11,7 +11,7 @@ router = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
-room_service = room.room(database.db_get())
+room_service = RoomService(database.db_get())
 
 @router.get("/{id}")
 def list_room(id: int):

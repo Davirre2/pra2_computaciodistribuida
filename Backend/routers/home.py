@@ -1,13 +1,10 @@
 from typing import List
 from fastapi import APIRouter, Depends, Request
 import schemas.home as schemas
-import services.home as services
+from services.home import HomeService
 import database.database as database
-from sqlmodel import Session
 from fastapi.security import HTTPBearer
 from services.authentication import AuthService
-
-from services.home import home
 
 
 router = APIRouter(
@@ -17,7 +14,7 @@ router = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
-home_service = home(database.db_get())
+home_service = HomeService(database.db_get())
 auth_service = AuthService(database.db_get())
 
 @router.get("/{id}", response_model=List[schemas.HomeList])

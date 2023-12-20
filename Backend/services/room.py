@@ -1,15 +1,8 @@
-import pytest
-from sqlmodel import Session
-#from requests import Session quin dels dos es xd
-
 import schemas.room
-import database.database as database
 from models.room import Room
 import schemas.room as schemas
-from fastapi import FastAPI, Depends
-#from sqlmodel import Session, create_engine, select
 
-class room: #TODO ficau mes bonic
+class RoomService:
     
     def __init__(self, service_session) -> None:
         self.db = service_session

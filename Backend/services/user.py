@@ -1,16 +1,10 @@
-#aquí hi ha les consultes a BD i tal
-import pytest
-from sqlmodel import Session
-#from requests import Session quin dels dos es xd
-
-import database.database as database
 import schemas.user as schemas
 import models.user as user_model
 import hashlib
 
 from exceptions.UsedEmailException import UsedEmailException
 
-class UserService: #TODO ficau mes bonic
+class UserService:
     
     def __init__(self, service_session) -> None:
         self.db = service_session

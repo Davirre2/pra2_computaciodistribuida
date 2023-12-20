@@ -1,8 +1,5 @@
-from sqlmodel import Session
-from fastapi import FastAPI, Depends, HTTPException, status
 from models.user import User
 from exceptions.AuthException import AuthException
-import config.config as config
 import hashlib
 from jose import jwt
 from models.tokendata import TokenData
@@ -10,7 +7,6 @@ from models.tokendata import TokenData
 class AuthService:
     
     def __init__(self, service_session) -> None:
-        #self.db = Depends(database.get_db()) #npi
         self.db = service_session
 
     def login(self, email: str, password: str):
@@ -26,7 +22,6 @@ class AuthService:
         return user.token
 
     def create_token(self, user: User):
-        print("estic aqui dins")
         data = {'user_id' : user.id, 
                 'email' : user.email, 
                 'is_active' : user.is_active}

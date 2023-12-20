@@ -1,11 +1,10 @@
 from exceptions.WrongUserException import WrongUserException
-
 from models.home import Home
 import schemas.home as schemas
 from models.tokendata import TokenData
 from exceptions.EmptyPayloadException import EmptyPayloadException
 
-class home: #TODO ficau mes bonic
+class HomeService:
     
     def __init__(self, service_session) -> None:
         self.db = service_session
