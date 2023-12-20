@@ -9,5 +9,4 @@ class Room(Base):
     room_device_description = Column(String)
     home_id = Column(Integer, ForeignKey("home.id"), index = True)
 
-    #rooms_in_home = relationship("Home", back_populates="rooms", secondary="Homeroom")
     home = relationship("Home", back_populates="rooms")

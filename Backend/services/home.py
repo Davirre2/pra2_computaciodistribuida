@@ -3,6 +3,7 @@ from exceptions.WrongUserException import WrongUserException
 from models.home import Home
 import schemas.home as schemas
 from models.tokendata import TokenData
+from exceptions.EmptyPayloadException import EmptyPayloadException
 
 class home: #TODO ficau mes bonic
     
@@ -52,5 +53,20 @@ class home: #TODO ficau mes bonic
         home = self.db.query(Home).filter(Home.id == id).first()
         return home
         
+    def get_home_list_by_addr_or_desc(self, payload: schemas.HomeListDescAddr):
+        if payload.home_address is None and payload.home_description is None:
+            raise EmptyPayloadException("Hi ha d'haver > 1 valor.")
+        
+        filterdesc = payload.home_description
+        filteraddr = payload.home_address
+
+        if not (filterdesc is None) and not (filteraddr is None):
+            list_homes = self.db.query(Home).filter(Home.home_description.ilike(f'%{filterdesc}%') | Home.home_address.ilike(f'%{filteraddr}%')).all()
+        elif not (filteraddr is None):
+            list_homes = self.db.query(Home).filter(Home.home_address.ilike(f'%{filteraddr}%')).all()
+        elif not (filterdesc is None):
+            list_homes = self.db.query(Home).filter(Home.home_address.ilike(f'%{filterdesc}%')).all()
+        
+        return list_homes
         
         

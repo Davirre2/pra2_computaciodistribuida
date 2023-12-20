@@ -42,6 +42,10 @@ async def delete_home(id: int, request: Request, credentials: HTTPBearer = Depen
     data = auth_service.check_token(token)
     return home_service.delete_home(id, data)
 
+@router.post("/search", response_model=List[schemas.HomeList])
+def search_home(payload: schemas.HomeListDescAddr):
+    return home_service.get_home_list_by_addr_or_desc(payload)
+
 @router.put("/{id}", dependencies=[Depends(HTTPBearer())])
 async def modify_home(id: int, new_name: str, new_address: str, new_description: str, request: Request, credentials: HTTPBearer = Depends()):
     token = (await credentials(request)).credentials

@@ -18,3 +18,9 @@ def wrong_user_exception_handler(request, exc):
         content = {"msg" : exc.message},
     )
 
+def empty_payload_exception_handler(request, exc):
+    return jr(
+        status_code = 422,
+        content = {"msg" : exc.message},
+    )
+

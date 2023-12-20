@@ -8,14 +8,16 @@ from schemas.user import User
 from schemas.room import RoomList
 
 class HomeBase(BaseModel):
-    home_name: str
+    pass
 
 class HomeCreate(HomeBase): #post
+    home_name: str
     home_description: str
     home_address: str
     owner_id: int
 
 class Home(HomeBase):
+    home_name: str
     id: int
     owner_id: int
     #rooms: int #list[Room] = []
@@ -25,6 +27,9 @@ class Home(HomeBase):
     # class Config:
     #     from_attributes = True
 
+class HomeListDescAddr(HomeBase):
+    home_description: str | None = None
+    home_address: str | None = None
 
 class HomeList(HomeBase):
     home_name: str

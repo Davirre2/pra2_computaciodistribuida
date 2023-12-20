@@ -11,6 +11,7 @@ from exceptions import ErrorHandler
 from exceptions.UsedEmailException import UsedEmailException
 from exceptions.AuthException import AuthException
 from exceptions.WrongUserException import WrongUserException
+from exceptions.EmptyPayloadException import EmptyPayloadException
 
 
 app = FastAPI()
@@ -18,6 +19,7 @@ app = FastAPI()
 app.add_exception_handler(UsedEmailException, ErrorHandler.used_email_exception_handler)
 app.add_exception_handler(AuthException, ErrorHandler.auth_exception_handler)
 app.add_exception_handler(WrongUserException, ErrorHandler.wrong_user_exception_handler)
+app.add_exception_handler(EmptyPayloadException, ErrorHandler.empty_payload_exception_handler)
 
 
 app.include_router(routerhome, tags=["home"])
