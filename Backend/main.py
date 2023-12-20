@@ -1,3 +1,4 @@
+import database.database
 from fastapi import FastAPI
 
 import services as services

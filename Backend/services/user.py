@@ -14,7 +14,6 @@ class UserService:
         user = self.db.query(user_model.User).filter(user_model.User.id == Id)
         if user is None:
             raise WrongUserException("Aquest usuari no esxisteix")
-        #print(user.dict())
         return user
 
     def create_user(self, created_user: schemas.UserCreate): #TODO canvia noms pls

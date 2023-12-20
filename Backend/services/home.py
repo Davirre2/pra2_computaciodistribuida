@@ -12,7 +12,7 @@ class HomeService:
         self.db = service_session
 
     def get_home_list_by_id(self, Id: int):
-        homes = self.db.query(Home).filter(Home.id == Id).first()
+        homes = self.db.query(Home).filter(Home.id == Id)
         return homes
     
     def get_home_list_by_owner_id(self, Id: int):
@@ -24,7 +24,7 @@ class HomeService:
         return homes
     
     def create_home(self, created_home: schemas.HomeCreate):
-        new_home = Home(**created_home.dict())
+        new_home = Home(**created_home.dict()) #TODO: mirar si es crea amb un owner que no existeix (o no)
         self.db.add(new_home)
         self.db.commit()
         self.db.refresh(new_home)
@@ -42,7 +42,8 @@ class HomeService:
         id, new_name  = payload.id, payload.home_name
         new_address, new_description = payload.home_address, payload.home_description
         
-        home = self.db.query(Home).filter(Home.id == id).first()
+        home = self.db.query(Home).filter(Home.id == id).first()   #TODO: tractar si no existeix el id de home i que a vegades rebenta sembla?¿
+
         if not home.owner_id == data.user_id:
             raise WrongUserException("L'usuari no és el propietari de la casa")
         

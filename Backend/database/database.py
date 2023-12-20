@@ -14,9 +14,12 @@ engine = create_engine(
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
-import models.home
-import models.room
-import models.user
+from models.user import User
+from models.home import Home
+#import models.home
+from models.room import Room
+
+
 Base.metadata.create_all(bind=engine)
 
 def get_all_db_data():

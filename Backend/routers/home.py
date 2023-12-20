@@ -18,11 +18,11 @@ home_service = HomeService(database.db_get())
 auth_service = AuthService(database.db_get())
 
 @router.get("/{id}", response_model=List[schemas.HomeList])
-def list_home(id: int):
+def list_home(id):
     return home_service.get_home_list_by_id(id)
 
 @router.get("/owner/{id}", response_model=List[schemas.HomeList])
-def list_homes_by_owner(id: int):
+def list_homes_by_owner(id):
     return home_service.get_home_list_by_owner_id(id)
 
 @router.get("/", response_model=List[schemas.HomeList])

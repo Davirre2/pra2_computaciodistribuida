@@ -32,6 +32,7 @@ class HomeModify(HomeBase):
 
 from schemas.user import User
 class HomeList(HomeBase):
+    id: int
     home_name: str
     home_description: str
     home_address: str
