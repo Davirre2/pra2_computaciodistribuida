@@ -1,9 +1,9 @@
-#aquí hi ha la lògica i validacions i tal
 from pydantic import BaseModel, validator
 from re import search
 
 class UserBase(BaseModel):
     email: str
+
     # @validator('email')
     # def emailvalidation(cls, v):
     #     if (search("^[a-zA-Z0-9.!#$%&'+/=?^`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)$",v) is None):

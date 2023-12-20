@@ -44,7 +44,7 @@ def search_home(payload: schemas.HomeListDescAddr):
     return home_service.get_home_list_by_addr_or_desc(payload)
 
 @router.put("/{id}", dependencies=[Depends(HTTPBearer())])
-async def modify_home(id: int, new_name: str, new_address: str, new_description: str, request: Request, credentials: HTTPBearer = Depends()):
+async def modify_home(payload: schemas.HomeModify, request: Request, credentials: HTTPBearer = Depends()):
     token = (await credentials(request)).credentials
     data = auth_service.check_token(token)
-    return home_service.update_home(id, new_name, new_address, new_description, data)
+    return home_service.update_home(payload, data)

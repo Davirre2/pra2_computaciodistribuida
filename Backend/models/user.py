@@ -13,4 +13,4 @@ class User(Base):
     password = Column(String)
     is_active = Column(Boolean, default=True)
 
-    homes: Mapped[List["Home"]] = relationship("Home", back_populates="owner") #maybe no es aixi
+    homes: Mapped[List["Home"]] = relationship("Home", back_populates="owner")
