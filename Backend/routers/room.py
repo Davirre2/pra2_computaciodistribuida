@@ -15,7 +15,7 @@ room_service = room.room(database.db_get())
 
 @router.get("/{id}")
 def list_room(id: int):
-    return room_service.get_room_list_byId(id)
+    return room_service.get_room_list_by_home_id(id)
 
 @router.get("/")
 def list_room():

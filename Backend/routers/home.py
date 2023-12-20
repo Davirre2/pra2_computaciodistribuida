@@ -1,3 +1,4 @@
+from typing import List
 from fastapi import APIRouter, Depends
 import schemas.home as schemas
 import services.home as services
@@ -18,9 +19,9 @@ home_service = home(database.db_get())
 
 @router.get("/{id}")
 def list_home(id: int):
-    return home_service.get_home_list_byId(id)
+    return home_service.get_home_list_by_id(id)
 
-@router.get("/")
+@router.get("/", response_model=List[schemas.HomeList])
 def list_home():
     return home_service.get_home_list()
 

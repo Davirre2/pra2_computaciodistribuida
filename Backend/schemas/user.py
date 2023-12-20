@@ -12,9 +12,7 @@ class UserBase(BaseModel):
 
 class User(UserBase): #unused prolly
     id: int
-    homes: int
-    class Config:
-        from_attributes = True
+    #homes: int
 
 class UserCreate(UserBase):
     pass

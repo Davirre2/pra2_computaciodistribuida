@@ -1,10 +1,5 @@
-import time
-import threading
 from fastapi import FastAPI
-from pydantic import BaseModel
-import requests
-import database.database as database
-import models.home as Home
+
 import services as services
 from routers.home import router as routerhome
 from routers.user import router as routeruser

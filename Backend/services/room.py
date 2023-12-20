@@ -12,16 +12,13 @@ from fastapi import FastAPI, Depends
 class room: #TODO ficau mes bonic
     
     def __init__(self, service_session) -> None:
-        #self.db = Depends(database.get_db()) #npi
         self.db = service_session
 
-    # def get_room_list_byHomeId(self, Id: int):
-    #     #db = Depends(database.get_db())
-    #     rooms = self.db.query(room_model.Room).filter(room_model.Room.room_home_id == Id).all()
-    #     return rooms
+    def get_room_list_by_home_id(self, Id: int):
+        rooms = self.db.query(room_model.Room).filter(room_model.Room.home_id == Id).all()
+        return rooms
     
     def get_room_list(self):
-        #db = Depends(database.get_db())
         rooms = self.db.query(room_model.Room).all()
         return rooms
     

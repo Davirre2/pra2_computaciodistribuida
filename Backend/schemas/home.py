@@ -1,7 +1,11 @@
 #aquí hi ha la lògica i validacions i tal
 #la forma eb la que pilla la info el endpint
 
-from pydantic import BaseModel, validator
+from typing import List
+from pydantic import BaseModel, validator, field_serializer
+
+from schemas.user import User
+from schemas.room import RoomList
 
 class HomeBase(BaseModel):
     home_name: str
@@ -26,9 +30,9 @@ class HomeList(HomeBase):
     home_name: str
     home_description: str
     home_address: str
-    owner: int
+    owner: User
+    rooms: List[RoomList] 
 
-# class HomeListUser(BaseModel): #no estic segur
-#     home_name: str
-#     home_description: str
-#     home_address: str
+    # @field_serializer(owner)
+    # def serialize_owner(self, owner: User, _info):
+    #     return owner.

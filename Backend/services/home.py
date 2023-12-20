@@ -7,27 +7,19 @@ import schemas.home
 import database.database as database
 import models.home as home_model
 import schemas.home as schemas
-from fastapi import FastAPI, Depends
 #from sqlmodel import Session, create_engine, select
 
 class home: #TODO ficau mes bonic
     
     def __init__(self, service_session) -> None:
-        #self.db = Depends(database.get_db()) #npi
         self.db = service_session
 
-    def get_home_list_byId(self, Id: int):
-        #db = Depends(database.get_db())
-        #test_home = {"id": id,"home_name": "My Home", "home_description": "Description", "home_address": "123 Main St","owner": 1, }
-        #create_home(test_home, db)
+    def get_home_list_by_id(self, Id: int):
         homes = self.db.query(home_model.Home).filter(home_model.Home.id == Id).all()
-        #print (homes)
         return homes
     
     def get_home_list(self):
-        #db = Depends(database.get_db())
         homes = self.db.query(home_model.Home).all()
-        #homes = self.db.get(home.Home)
         return homes
     
     def create_home(self, created_home: schemas.HomeCreate): #TODO canvia noms pls
