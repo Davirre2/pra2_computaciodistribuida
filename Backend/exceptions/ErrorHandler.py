@@ -6,3 +6,15 @@ def used_email_exception_handler(request, exc):
         content = {"msg" : exc.message},
     )
 
+def auth_exception_handler(request, exc):
+    return jr(
+        status_code = 401,
+        content = {"msg" : exc.message},
+    )
+
+def wrong_user_exception_handler(request, exc):
+    return jr(
+        status_code = 401,
+        content = {"msg" : exc.message},
+    )
+

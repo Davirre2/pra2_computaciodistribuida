@@ -15,4 +15,5 @@ class User(UserBase): #unused prolly
     #homes: int
 
 class UserCreate(UserBase):
+    password: str
     pass

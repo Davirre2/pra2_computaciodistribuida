@@ -7,6 +7,7 @@ import schemas.home
 import database.database as database
 import models.home as home_model
 import schemas.home as schemas
+from models.tokendata import TokenData
 #from sqlmodel import Session, create_engine, select
 
 class home: #TODO ficau mes bonic
@@ -15,7 +16,7 @@ class home: #TODO ficau mes bonic
         self.db = service_session
 
     def get_home_list_by_id(self, Id: int):
-        homes = self.db.query(home_model.Home).filter(home_model.Home.id == Id).all()
+        homes = self.db.query(home_model.Home).filter(home_model.Home.id == Id).first()
         return homes
     
     def get_home_list(self):
@@ -29,27 +30,9 @@ class home: #TODO ficau mes bonic
         self.db.refresh(new_home)
         return new_home
     
-    def test_homee():
-        ow = home.User(id=1, email="asd",)
-        pn = home.Home(id=1, home_name="country", home_description="code", home_address="number", owner="1", rooms="AS")
-
-        assert pn.id == 1
-        assert pn.home_name == 'country'
-        assert pn.home_description == 'code'
-        assert pn.home_address == 'number'
-        assert pn.owner == '1'
-        return pn
-
-    def get_home_test(db: Session):
-        #engine = create_engine("sqlite:///localhost") #nidea
-        test_user = home.User(email="user@example.com")
-        test_home = home.Home(home_name="country", home_description="code", home_address="number", owner=test_user)
-
-        #create_home(test_home, db)
-        deb = next(db)
-        
-        deb.add(test_home)
-        deb.commit()
-        deb.refresh(test_home)
-        #homes = db.query(home.Home).filter(home.Home.id == id).all()
-        return "homes"
+    def delete_home(id: int, data: TokenData):
+        home = self.db.query(home_model.Home).filter(home_model.Home.id == Id).first()
+        if not home.owner_id == data.user_id:
+            raise WrongUserException("L'usuari no és el propietari de la casa")
+        self.db.delete(home)
+        self.db.commit()

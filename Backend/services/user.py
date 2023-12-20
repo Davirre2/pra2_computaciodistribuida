@@ -6,6 +6,7 @@ from sqlmodel import Session
 import database.database as database
 import schemas.user as schemas
 import models.user as user_model
+import hashlib
 
 from exceptions.UsedEmailException import UsedEmailException
 
@@ -18,6 +19,7 @@ class UserService: #TODO ficau mes bonic
         email_check = self.db.query(user_model.User).filter(user_model.User.email == created_user.email).first()
         if email_check is not None:
             raise UsedEmailException("El email ja esta a la base de dades, tonto.")
+        created_user.password = hashlib.sha256(created_user.password.encode('utf-8')).hexdigest()
         new_user = user_model.User(**created_user.dict())
         self.db.add(new_user)
         self.db.commit()
