@@ -2,6 +2,8 @@ import schemas.room
 from models.room import Room
 import schemas.room as schemas
 
+from exceptions.EmptyResponseException import EmptyResponseException
+
 class RoomService:
     
     def __init__(self, service_session) -> None:
@@ -9,10 +11,14 @@ class RoomService:
 
     def get_room_list_by_home_id(self, Id: int):
         rooms = self.db.query(Room).filter(Room.home_id == Id).all()
+        if not rooms:
+            raise EmptyResponseException("Aquesta casa no te cap habitació assignada")
         return rooms
     
     def get_room_list(self):
         rooms = self.db.query(Room).all()
+        if not rooms:
+            raise EmptyResponseException("No hi han habitacions a la BBDD")
         return rooms
     
     def create_room(self, created_room: schemas.RoomCreate): #TODO canvia noms pls

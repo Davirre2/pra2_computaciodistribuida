@@ -1,7 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 from database.database import Base
-#from models.home import Home
 
 class Room(Base):
     __tablename__ = "room"

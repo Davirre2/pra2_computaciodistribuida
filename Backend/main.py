@@ -13,6 +13,7 @@ from exceptions.UsedEmailException import UsedEmailException
 from exceptions.AuthException import AuthException
 from exceptions.WrongUserException import WrongUserException
 from exceptions.EmptyPayloadException import EmptyPayloadException
+from exceptions.EmptyResponseException import EmptyResponseException
 
 tags_metadata = [
     {
@@ -35,6 +36,7 @@ app.add_exception_handler(UsedEmailException, ErrorHandler.used_email_exception_
 app.add_exception_handler(AuthException, ErrorHandler.auth_exception_handler)
 app.add_exception_handler(WrongUserException, ErrorHandler.wrong_user_exception_handler)
 app.add_exception_handler(EmptyPayloadException, ErrorHandler.empty_payload_exception_handler)
+app.add_exception_handler(EmptyResponseException, ErrorHandler.empty_response_exception_handler)
 
 
 app.include_router(routerhome, tags=["home"])

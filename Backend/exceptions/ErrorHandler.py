@@ -24,3 +24,8 @@ def empty_payload_exception_handler(request, exc):
         content = {"msg" : exc.message},
     )
 
+def empty_response_exception_handler(request, exc):
+    return jr(
+        status_code = 404,
+        content = {"msg" : exc.message},
+    )

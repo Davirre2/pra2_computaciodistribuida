@@ -1,0 +1,7 @@
+sqlalchemy
+fastapi
+python-jose
+pydantic
+uvicorn
+sqlmodel
+typing

@@ -7,7 +7,6 @@ from sqlmodel import Session
 router = APIRouter(
     prefix="/room",
     tags=["room"],
-    #dependencies=[Depends(get_token_header)],
     responses={404: {"description": "Not found"}},
 )
 

@@ -4,7 +4,9 @@ from models.user import User
 from sqlalchemy.orm import aliased
 import schemas.home as schemas
 from models.tokendata import TokenData
+
 from exceptions.EmptyPayloadException import EmptyPayloadException
+from exceptions.EmptyResponseException import EmptyResponseException
 
 class HomeService:
     
@@ -12,15 +14,21 @@ class HomeService:
         self.db = service_session
 
     def get_home_list_by_id(self, Id: int):
-        homes = self.db.query(Home).filter(Home.id == Id)
-        return homes
+        home = self.db.query(Home).filter(Home.id == Id).all()
+        if not home:
+            raise EmptyResponseException("Aquesta casa no existeix")
+        return home
     
     def get_home_list_by_owner_id(self, Id: int):
         homes = self.db.query(Home).filter(Home.owner_id == Id).all()
+        if not homes:
+            raise EmptyResponseException("Aquest usuari no te cap casa")
         return homes
     
     def get_home_list(self):
         homes = self.db.query(Home).all()
+        if not homes:
+            raise EmptyResponseException("No hi ha cap casa a la BBDD")
         return homes
     
     def create_home(self, created_home: schemas.HomeCreate):
@@ -57,7 +65,6 @@ class HomeService:
         #     new_owner = aliased(self.db.query(User).filter(User.id == new_owner_id))
         #     self.db.query(Home).filter(Home.id == id).update({Home.owner: new_owner}, synchronize_session = False)
         self.db.commit()
-
         home = self.db.query(Home).filter(Home.id == id).first()
         return home
         
@@ -74,6 +81,9 @@ class HomeService:
             list_homes = self.db.query(Home).filter(Home.home_address.ilike(f'%{filteraddr}%')).all()
         elif not (filterdesc is None):
             list_homes = self.db.query(Home).filter(Home.home_address.ilike(f'%{filterdesc}%')).all()
+        
+        if not list_homes:
+            raise EmptyResponseException("No hi ha cap casa a la BBDD amb la descripcio que has donat")
         
         return list_homes
         

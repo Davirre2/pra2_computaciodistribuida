@@ -3,7 +3,8 @@ import models.user as user_model
 import hashlib
 
 from exceptions.UsedEmailException import UsedEmailException
-from exceptions.WrongUserException import WrongUserException
+#from exceptions.WrongUserException import WrongUserException
+from exceptions.EmptyResponseException import EmptyResponseException
 
 class UserService:
     
@@ -11,9 +12,9 @@ class UserService:
         self.db = service_session
     
     def get_user_by_id(self, Id: int):
-        user = self.db.query(user_model.User).filter(user_model.User.id == Id)
-        if user is None:
-            raise WrongUserException("Aquest usuari no esxisteix")
+        user = self.db.query(user_model.User).filter(user_model.User.id == Id).all()
+        if not user:
+            raise EmptyResponseException("Aquest usuari no existeix")
         return user
 
     def create_user(self, created_user: schemas.UserCreate): #TODO canvia noms pls
@@ -29,4 +30,6 @@ class UserService:
     
     def get_user_list(self):
         users = self.db.query(user_model.User).all()
+        if not users:
+            raise EmptyResponseException("No existeix cap usuari")
         return users
