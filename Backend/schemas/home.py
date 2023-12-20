@@ -1,7 +1,5 @@
 from typing import List
-from pydantic import BaseModel, validator, field_serializer
-
-from schemas.user import User
+from pydantic import BaseModel
 from schemas.room import RoomList
 
 class HomeBase(BaseModel):
@@ -19,6 +17,7 @@ class Home(HomeBase):
     owner_id: int
     home_description: str
     home_address: str
+    rooms: List[RoomList]
 
 class HomeListDescAddr(HomeBase):
     home_description: str | None = None
@@ -31,6 +30,7 @@ class HomeModify(HomeBase):
     home_address: str | None = None
     #owner_id: int | None = None
 
+from schemas.user import User
 class HomeList(HomeBase):
     home_name: str
     home_description: str

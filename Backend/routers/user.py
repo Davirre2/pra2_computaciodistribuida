@@ -1,3 +1,4 @@
+from typing import List
 from fastapi import APIRouter, Depends
 import schemas.user as schemas
 import database.database as database
@@ -13,14 +14,14 @@ router = APIRouter(
 
 user_service = UserService(database.db_get())
 
-# @router.get("/{id}")
-# def list_home(id: int):
-#     return UserService.get_home_list_byId(id)
-
-@router.get("/")
+@router.get("/", response_model=List[schemas.UserList])
 def list_user():
     return user_service.get_user_list()
 
+@router.get("/{id}", response_model=List[schemas.UserList])
+def get_user_by_id(id: int):
+    return user_service.get_user_by_id(id)
+
 @router.post("/")
-def post_user(payload: schemas.UserCreate):#que polles va qui
+def post_user(payload: schemas.UserCreate):
     return user_service.create_user(payload)

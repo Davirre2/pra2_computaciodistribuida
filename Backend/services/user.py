@@ -3,12 +3,20 @@ import models.user as user_model
 import hashlib
 
 from exceptions.UsedEmailException import UsedEmailException
+from exceptions.WrongUserException import WrongUserException
 
 class UserService:
     
     def __init__(self, service_session) -> None:
         self.db = service_session
     
+    def get_user_by_id(self, Id: int):
+        user = self.db.query(user_model.User).filter(user_model.User.id == Id)
+        if user is None:
+            raise WrongUserException("Aquest usuari no esxisteix")
+        #print(user.dict())
+        return user
+
     def create_user(self, created_user: schemas.UserCreate): #TODO canvia noms pls
         email_check = self.db.query(user_model.User).filter(user_model.User.email == created_user.email).first()
         if email_check is not None:
