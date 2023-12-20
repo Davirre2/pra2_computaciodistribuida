@@ -29,3 +29,9 @@ def empty_response_exception_handler(request, exc):
         status_code = 404,
         content = {"msg" : exc.message},
     )
+
+def nonexistent_id_exception_handler(request, exc):
+    return jr(
+        status_code=404,
+        content = {"msg" : exc.message},
+    )

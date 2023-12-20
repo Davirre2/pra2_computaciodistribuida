@@ -7,6 +7,7 @@ from models.tokendata import TokenData
 
 from exceptions.EmptyPayloadException import EmptyPayloadException
 from exceptions.EmptyResponseException import EmptyResponseException
+from exceptions.NonexistentIdException import NonexistentIdException
 
 class HomeService:
     
@@ -32,7 +33,10 @@ class HomeService:
         return homes
     
     def create_home(self, created_home: schemas.HomeCreate):
-        new_home = Home(**created_home.dict()) #TODO: mirar si es crea amb un owner que no existeix (o no)
+        new_home = Home(**created_home.dict()) 
+        owner = self.db.query(User).filter(User.id == new_home.owner_id).all()
+        if not owner:
+            raise WrongUserException("L'usuari al que estas asignant la casa no exiteix")
         self.db.add(new_home)
         self.db.commit()
         self.db.refresh(new_home)
@@ -51,7 +55,9 @@ class HomeService:
         new_address, new_description = payload.home_address, payload.home_description
         
         home = self.db.query(Home).filter(Home.id == id).first()   #TODO: tractar si no existeix el id de home i que a vegades rebenta sembla?¿
-
+        if not home:
+            raise NonexistentIdException("La casa que estas intentant modificar no existeix")
+        
         if not home.owner_id == data.user_id:
             raise WrongUserException("L'usuari no és el propietari de la casa")
         

@@ -14,6 +14,8 @@ from exceptions.AuthException import AuthException
 from exceptions.WrongUserException import WrongUserException
 from exceptions.EmptyPayloadException import EmptyPayloadException
 from exceptions.EmptyResponseException import EmptyResponseException
+from exceptions.NonexistentIdException import NonexistentIdException
+
 
 tags_metadata = [
     {
@@ -37,7 +39,7 @@ app.add_exception_handler(AuthException, ErrorHandler.auth_exception_handler)
 app.add_exception_handler(WrongUserException, ErrorHandler.wrong_user_exception_handler)
 app.add_exception_handler(EmptyPayloadException, ErrorHandler.empty_payload_exception_handler)
 app.add_exception_handler(EmptyResponseException, ErrorHandler.empty_response_exception_handler)
-
+app.add_exception_handler(NonexistentIdException, ErrorHandler.empty_response_exception_handler)
 
 app.include_router(routerhome, tags=["home"])
 app.include_router(routeruser, tags=["user"])

@@ -3,7 +3,6 @@ import models.user as user_model
 import hashlib
 
 from exceptions.UsedEmailException import UsedEmailException
-#from exceptions.WrongUserException import WrongUserException
 from exceptions.EmptyResponseException import EmptyResponseException
 
 class UserService:
