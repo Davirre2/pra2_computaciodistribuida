@@ -25,5 +25,5 @@ def list_home():
     return home_service.get_home_list()
 
 @router.post("/")
-def post_home(payload: schemas.HomeList):#que polles va qui
+def post_home(payload: schemas.HomeCreate):#que polles va qui #no ho sé
     return home_service.create_home(payload)

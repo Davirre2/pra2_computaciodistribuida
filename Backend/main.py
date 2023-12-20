@@ -8,6 +8,8 @@ import models.home as Home
 import services as services
 from routers.home import router as routerhome
 from routers.user import router as routeruser
+from routers.room import router as routerroom
+
 
 from exceptions import ErrorHandler
 from exceptions.UsedEmailException import UsedEmailException
@@ -18,6 +20,8 @@ app.add_exception_handler(UsedEmailException, ErrorHandler.used_email_exception_
 
 app.include_router(routerhome, tags=["home"])
 app.include_router(routeruser, tags=["user"])
+app.include_router(routerroom, tags=["room"])
+
 #tokens metadata per els schemas o els routers
 
 

@@ -15,6 +15,8 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 import models.home
+import models.room
+import models.user
 Base.metadata.create_all(bind=engine)
 
 def get_all_db_data():

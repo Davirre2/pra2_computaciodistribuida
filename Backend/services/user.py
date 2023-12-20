@@ -5,8 +5,8 @@ from sqlmodel import Session
 
 import schemas.home
 import database.database as database
-import models.home as home_model
 import schemas.home as schemas
+import models.user as User
 from fastapi import FastAPI, Depends
 
 from exceptions.UsedEmailException import UsedEmailException
@@ -19,7 +19,7 @@ class UserService: #TODO ficau mes bonic
         self.db = service_session
     
     def create_user(self, created_user: schemas.HomeCreate): #TODO canvia noms pls
-        email_check = self.db.query(home_model.User).filter(home_model.User.email == created_user.email)
+        email_check = self.db.query(home_model.User).filter(home_model.User.email == created_user.email).first()
         if email_check is not None:
             raise UsedEmailException("El email ja esta a la base de dades, tonto.")
         new_user = home_model.User(**created_user.dict())

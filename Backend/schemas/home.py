@@ -14,7 +14,7 @@ class HomeCreate(HomeBase): #post
 class Home(HomeBase):
     id: int
     owner_id: int
-    rooms: int #list[Room] = []
+    #rooms: int #list[Room] = []
     home_description: str
     home_address: str
 

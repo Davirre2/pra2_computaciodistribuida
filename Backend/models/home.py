@@ -1,6 +1,7 @@
 from typing import Optional
 from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, Mapped
+from typing import List
 
 from database.database import Base
 
@@ -15,27 +16,9 @@ class Home(Base):
     home_address = Column(String)
     home_description = Column(String)
     owner_id = Column(Integer, ForeignKey("user.id"))
-    rooms_ids = Column(String, ForeignKey("room.id"))
+    #rooms_ids = Column(String, ForeignKey("room.id"))
     #rooms = relationship("Room", back_populates="home")  #TODO aixo chatgpt deia que feia falta
     
-    rooms = relationship("Room", back_populates="rooms_in_home")
+    rooms: Mapped[List["Room"]] = relationship("Room", back_populates="home")
     owner = relationship("User", back_populates="homes") #maybe?
 
-class Room(Base):
-    __tablename__ = "room"
-    id = Column(Integer, primary_key=True, index=True)
-    room_name = Column(String)
-    room_device_description = Column(String)
-
-    #room_home_id = Column(String, ForeignKey("Home.id"))
-    rooms_in_home = relationship("Home", back_populates="rooms")
-
-class User(Base):
-    __tablename__ = "user"
-
-    id = Column(Integer, primary_key=True, index=True)
-    email = Column(String, unique=True, index=True)
-    # hashed_password = Column(String)
-    # is_active = Column(Boolean, default=True)
-
-    homes = relationship("Home", back_populates="owner") #maybe no es aixi
