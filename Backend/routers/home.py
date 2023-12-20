@@ -1,5 +1,5 @@
 from typing import List
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 import schemas.home as schemas
 import services.home as services
 import database.database as database
@@ -32,7 +32,13 @@ def list_home():
 def post_home(payload: schemas.HomeCreate):
     return home_service.create_home(payload)
 
+# @router.delete("/{id}")
+# def delete_home(id: int, token: str = Depends(HTTPBearer())):
+#     data = auth_service.check_token(token)
+#     return home_service.delete_home(id, data)
+
 @router.delete("/{id}")
-def delete_home(id: int, token = Depends(HTTPBearer())):
+async def delete_home(id: int, request: Request, credentials: HTTPBearer = Depends()):
+    token = (await credentials(request)).credentials
     data = auth_service.check_token(token)
     return home_service.delete_home(id, data)

@@ -1,10 +1,11 @@
 from sqlmodel import Session
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException, status
 from models.user import User
 from exceptions.AuthException import AuthException
 import config.config as config
 import hashlib
 from jose import jwt
+from models.tokendata import TokenData
 
 class AuthService:
     
@@ -24,9 +25,8 @@ class AuthService:
             self.db.refresh(user)
         return user.token
 
-    
-
     def create_token(self, user: User):
+        print("estic aqui dins")
         data = {'user_id' : user.id, 
                 'email' : user.email, 
                 'is_active' : user.is_active}
@@ -35,14 +35,13 @@ class AuthService:
         
         
     def check_token(self, token: str):
-        data = jwt.decode(token, "tincmoltamoltasoninohepreselsantidepressiusencaraxd1234", "HS256")
-        user = self.db.query(User.User).filter(User.User.id == data['user_id']).filter(User.User.email == data['email']).first()
+        data = jwt.decode(token.encode('utf-8'), "tincmoltamoltasoninohepreselsantidepressiusencaraxd1234", "HS256")
+        user = self.db.query(User).filter(User.id == data['user_id']).filter(User.email == data['email']).first()
         if user is None:
             raise AuthException("Token incorrecte, bestie (aixeca cella)")
         if not data['is_active']:
-            raise AuthException("El ")
+            raise AuthException("L'usuari no està actiu")
         return TokenData(user_id = data['user_id'], email = data['email'], is_active = data["is_active"])
-
 
     def check_password(self, password: str, hashed_password: str):
         converted_pw = hashlib.sha256(password.encode('utf-8'))

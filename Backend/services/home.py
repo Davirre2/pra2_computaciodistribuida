@@ -30,9 +30,10 @@ class home: #TODO ficau mes bonic
         self.db.refresh(new_home)
         return new_home
     
-    def delete_home(id: int, data: TokenData):
-        home = self.db.query(home_model.Home).filter(home_model.Home.id == Id).first()
+    def delete_home(self, id: int, data: TokenData):
+        home = self.db.query(home_model.Home).filter(home_model.Home.id == id).first()
         if not home.owner_id == data.user_id:
             raise WrongUserException("L'usuari no és el propietari de la casa")
         self.db.delete(home)
         self.db.commit()
+        return home
