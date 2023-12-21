@@ -9,7 +9,7 @@ class User(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True)
-    token = Column(String) #contindrà l'userID i el mail codificat //// jsonWebTokens
+    token = Column(String)
     password = Column(String)
     is_active = Column(Boolean, default=True)
 

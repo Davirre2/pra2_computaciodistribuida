@@ -56,7 +56,7 @@ class HomeService:
         id, new_name  = payload.id, payload.home_name
         new_address, new_description = payload.home_address, payload.home_description
         
-        home = self.db.query(Home).filter(Home.id == id).first()   #TODO: tractar si no existeix el id de home i que a vegades rebenta sembla?¿
+        home = self.db.query(Home).filter(Home.id == id).first()
         if not home:
             raise NonexistentIdException("La casa que estas intentant modificar no existeix")
         
@@ -69,9 +69,7 @@ class HomeService:
             self.db.query(Home).filter(Home.id == id).update({Home.home_address: new_address}, synchronize_session = False)
         if home.home_description is not  new_description and new_description is not None:
             self.db.query(Home).filter(Home.id == id).update({Home.home_description: new_description}, synchronize_session = False)
-        # if home.owner.id is not  new_owner_id and new_owner_id is not None:
-        #     new_owner = aliased(self.db.query(User).filter(User.id == new_owner_id))
-        #     self.db.query(Home).filter(Home.id == id).update({Home.owner: new_owner}, synchronize_session = False)
+
         self.db.commit()
         home = self.db.query(Home).filter(Home.id == id).first()
         return home

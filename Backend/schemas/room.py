@@ -9,9 +9,7 @@ class RoomCreate(RoomBase): #post
 
 class Room(RoomBase):
     id: int
-    #room_home_id: int
     room_device_description: str
 
 class RoomList(RoomBase):
     room_device_description: str
-    #room_home_id: int

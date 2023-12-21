@@ -38,7 +38,3 @@ class HomeList(HomeBase):
     home_address: str
     owner: User
     rooms: List[RoomList] 
-
-    # @field_serializer(owner)
-    # def serialize_owner(self, owner: User, _info):
-    #     return owner.

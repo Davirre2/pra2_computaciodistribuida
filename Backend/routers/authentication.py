@@ -5,7 +5,6 @@ from database.database import db_get
 router = APIRouter(
     prefix="/auth",
     tags=["authentication"],
-    #dependencies=[Depends(get_token_header)],
     responses={404: {"description": "Not found"}},
 )
 auth_service = AuthService(db_get())

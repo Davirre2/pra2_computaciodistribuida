@@ -16,7 +16,7 @@ class UserService:
             raise EmptyResponseException("Aquest usuari no existeix")
         return user
 
-    def create_user(self, created_user: schemas.UserCreate): #TODO canvia noms pls
+    def create_user(self, created_user: schemas.UserCreate):
         email_check = self.db.query(user_model.User).filter(user_model.User.email == created_user.email).first()
         if email_check is not None:
             raise UsedEmailException("El email ja esta a la base de dades, tonto.")
