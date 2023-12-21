@@ -16,7 +16,6 @@ Base = declarative_base()
 
 from models.user import User
 from models.home import Home
-#import models.home
 from models.room import Room
 
 

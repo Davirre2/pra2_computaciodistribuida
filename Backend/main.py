@@ -30,6 +30,10 @@ tags_metadata = [
         "name": "user",
         "description": "Operacions amb els usuaris/propietaris de les cases",
     },
+    {
+        "name": "auth",
+        "description": "Autenticació d'usuaris"
+    }
 ]
 
 app = FastAPI(title="NigApi", summary="Api per la practica 2", openapi_tags=tags_metadata)

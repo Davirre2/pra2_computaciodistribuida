@@ -44,6 +44,8 @@ class HomeService:
     
     def delete_home(self, id: int, data: TokenData):
         home = self.db.query(Home).filter(Home.id == id).first()
+        if not home:
+            raise NonexistentIdException("La casa que estas intentant modificar no existeix")
         if not home.owner_id == data.user_id:
             raise WrongUserException("L'usuari no és el propietari de la casa")
         self.db.delete(home)

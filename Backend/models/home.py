@@ -12,5 +12,5 @@ class Home(Base):
     home_description = Column(String)
     owner_id = Column(Integer, ForeignKey("user.id"))
     
-    rooms: Mapped[List["Room"]] = relationship("Room", back_populates="home")
+    rooms = relationship("Room", back_populates="home")
     owner = relationship("User", back_populates="homes")
